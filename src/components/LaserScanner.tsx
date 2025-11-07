@@ -51,6 +51,13 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
     }
   };
 
+  const handleBlur = () => {
+    // Re-enfocar automáticamente cuando se pierde el foco
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 10);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/5 p-4">
       <div className="mx-auto max-w-2xl space-y-4">
@@ -80,9 +87,11 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
                 value={scannedCode}
                 onChange={(e) => setScannedCode(e.target.value)}
                 onKeyDown={handleKeyDown}
+                onBlur={handleBlur}
                 placeholder="El código aparecerá automáticamente..."
                 className="text-lg text-center"
                 autoFocus
+                inputMode="none"
               />
             </div>
 
