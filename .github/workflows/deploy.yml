@@ -6,7 +6,7 @@ on:
       - main
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -32,6 +32,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          # The action uses the built-in GITHUB_TOKEN automatically, no need to set it
-          # If you prefer a custom token, set it here: deploy_key: ${{ secrets.DEPLOY_KEY }}
