@@ -48,12 +48,6 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleScan(scannedCode);
-    } else if (e.key === "Backspace") {
-      e.preventDefault();
-      setScannedCode((prev) => prev.slice(0, -1));
-    } else if (e.key.length === 1) {
-      e.preventDefault();
-      setScannedCode((prev) => prev + e.key);
     }
   };
 
@@ -84,11 +78,11 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
                 ref={inputRef}
                 type="text"
                 value={scannedCode}
+                onChange={(e) => setScannedCode(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="El código aparecerá automáticamente..."
                 className="text-lg text-center"
                 autoFocus
-                inputMode="none"
               />
             </div>
 
