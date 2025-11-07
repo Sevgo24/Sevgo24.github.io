@@ -89,19 +89,6 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
                 onChange={(e) => setScannedCode(e.target.value)}
                 onKeyDown={handleKeyDown}
                 onBlur={handleBlur}
-                onFocus={(e) => {
-                  // Evita que el teclado aparezca incluso si el usuario toca el campo
-                  e.target.setAttribute("readonly", "true");
-                  setTimeout(() => {
-                    e.target.setAttribute("readonly", "true");
-                  }, 0);
-                }}
-                onTouchStart={(e) => {
-                  // Previene que Android intente abrir el teclado
-                  e.preventDefault();
-                  inputRef.current?.focus();
-                }}
-                readOnly
                 placeholder="El código aparecerá automáticamente..."
                 className={`text-lg text-center ${styles.noKeyboard}`}
                 autoFocus
