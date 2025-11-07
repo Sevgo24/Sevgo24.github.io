@@ -19,6 +19,20 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
   useEffect(() => {
     // Auto-focus input when component mounts
     inputRef.current?.focus();
+
+    // Capture all keyboard input and redirect to input field
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      // Only capture if input is not already focused and it's a printable character
+      if (document.activeElement !== inputRef.current && e.key.length === 1) {
+        inputRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleGlobalKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleGlobalKeyDown);
+    };
   }, []);
 
   const handleScan = (code: string) => {
