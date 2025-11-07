@@ -1,0 +1,18 @@
+.noKeyboard {
+  caret-color: transparent; /* Oculta el cursor */
+  user-select: none; /* Evita selección de texto accidental */
+  -webkit-user-select: none;
+
+  /* Evita que el teclado virtual aparezca (algunos navegadores lo ignoran, pero ayuda) */
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+
+  /* Ajusta el tamaño mínimo de fuente para evitar zoom automático en iOS */
+  font-size: 16px;
+
+  &:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 2px rgba(var(--secondary-rgb), 0.3);
+  }
+}

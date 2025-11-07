@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import ScanTypeSelector from "./ScanTypeSelector";
+import styles from "./styles/LaserScanner.module.css";
 
 interface LaserScannerProps {
   onBack: () => void;
@@ -89,9 +90,8 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
                 onKeyDown={handleKeyDown}
                 onBlur={handleBlur}
                 placeholder="El código aparecerá automáticamente..."
-                className="text-lg text-center"
+                className={`text-lg text-center ${styles.noKeyboard}`}
                 autoFocus
-                inputMode="none"
               />
             </div>
 
