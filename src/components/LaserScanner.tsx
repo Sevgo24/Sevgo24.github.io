@@ -17,33 +17,9 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Capturar todo el input del teclado/escáner
-    const handleGlobalKeyDown = (e: KeyboardEvent) => {
-      // Si es Enter, procesar el código
-      if (e.key === "Enter") {
-        handleScan(scannedCode);
-        return;
-      }
-
-      // Si es un caracter imprimible, agregarlo al código
-      if (e.key.length === 1) {
-        setScannedCode((prev) => prev + e.key);
-        e.preventDefault();
-      }
-
-      // Si es Backspace, eliminar el último caracter
-      if (e.key === "Backspace") {
-        setScannedCode((prev) => prev.slice(0, -1));
-        e.preventDefault();
-      }
-    };
-
-    document.addEventListener("keydown", handleGlobalKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleGlobalKeyDown);
-    };
-  }, [scannedCode]);
+    // Auto-focus el input para que el escáner láser funcione
+    inputRef.current?.focus();
+  }, []);
 
   const handleScan = (code: string) => {
     if (code.trim()) {
@@ -65,6 +41,19 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
       setTimeout(() => {
         inputRef.current?.focus();
       }, 100);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleScan(scannedCode);
+    } else if (e.key === "Backspace") {
+      e.preventDefault();
+      setScannedCode((prev) => prev.slice(0, -1));
+    } else if (e.key.length === 1) {
+      e.preventDefault();
+      setScannedCode((prev) => prev + e.key);
     }
   };
 
@@ -95,9 +84,10 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
                 ref={inputRef}
                 type="text"
                 value={scannedCode}
+                onKeyDown={handleKeyDown}
                 placeholder="El código aparecerá automáticamente..."
                 className="text-lg text-center"
-                readOnly
+                autoFocus
                 inputMode="none"
               />
             </div>
