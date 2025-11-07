@@ -17,14 +17,24 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Auto-focus input when component mounts
-    inputRef.current?.focus();
-
-    // Capture all keyboard input and redirect to input field
+    // Capturar todo el input del teclado/escáner
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
-      // Only capture if input is not already focused and it's a printable character
-      if (document.activeElement !== inputRef.current && e.key.length === 1) {
-        inputRef.current?.focus();
+      // Si es Enter, procesar el código
+      if (e.key === "Enter") {
+        handleScan(scannedCode);
+        return;
+      }
+
+      // Si es un caracter imprimible, agregarlo al código
+      if (e.key.length === 1) {
+        setScannedCode((prev) => prev + e.key);
+        e.preventDefault();
+      }
+
+      // Si es Backspace, eliminar el último caracter
+      if (e.key === "Backspace") {
+        setScannedCode((prev) => prev.slice(0, -1));
+        e.preventDefault();
       }
     };
 
@@ -33,7 +43,7 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
     return () => {
       document.removeEventListener("keydown", handleGlobalKeyDown);
     };
-  }, []);
+  }, [scannedCode]);
 
   const handleScan = (code: string) => {
     if (code.trim()) {
@@ -55,12 +65,6 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
       setTimeout(() => {
         inputRef.current?.focus();
       }, 100);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleScan(scannedCode);
     }
   };
 
@@ -91,11 +95,10 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
                 ref={inputRef}
                 type="text"
                 value={scannedCode}
-                onChange={(e) => setScannedCode(e.target.value)}
-                onKeyDown={handleKeyDown}
                 placeholder="El código aparecerá automáticamente..."
                 className="text-lg text-center"
-                autoFocus
+                readOnly
+                inputMode="none"
               />
             </div>
 
