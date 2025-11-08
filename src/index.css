@@ -101,23 +101,3 @@ All colors MUST be HSL.
   -webkit-backdrop-filter: blur(10px) !important;
   transition: all 0.3s ease;
 }
-
-/* Sidebar panel con efecto glass */
-[data-radix-dialog-content].fixed.inset-y-0 {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
-}
-
-/* Opcional: efecto en modo oscuro */
-.dark [data-radix-dialog-overlay].fixed.inset-0 {
-  background-color: rgba(25, 25, 25, 0.5) !important;
-  backdrop-filter: blur(8px) !important;
-}
-
-.dark [data-radix-dialog-content].fixed.inset-y-0 {
-  background-color: rgba(30, 30, 30, 0.85) !important;
-  backdrop-filter: blur(10px) !important;
-}
