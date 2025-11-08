@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { LogIn, LogOut } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { AttendanceRecord } from "@/pages/Index";
+import type { AttendanceRecord } from "@/hooks/useAttendance";
 
 interface AttendanceListProps {
   records: AttendanceRecord[];
