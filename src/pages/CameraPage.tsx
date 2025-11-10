@@ -7,7 +7,7 @@ const CameraPage = () => {
   const { handleScanSuccess } = useAttendance();
 
   const handleBack = () => {
-    navigate("/");
+    navigate("/attendance");
   };
 
   return (

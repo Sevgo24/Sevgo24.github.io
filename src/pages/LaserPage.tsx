@@ -7,7 +7,7 @@ const LaserPage = () => {
   const { handleScanSuccess } = useAttendance();
 
   const handleBack = () => {
-    navigate("/");
+    navigate("/attendance");
   };
 
   return <LaserScanner onBack={handleBack} onScanSuccess={handleScanSuccess} />;

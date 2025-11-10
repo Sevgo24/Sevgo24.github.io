@@ -11,7 +11,11 @@ const Index = () => {
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="text-center space-y-4 py-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <GraduationCap className="w-16 h-16 text-primary" />
+            <img
+              src="/logo-college.jpeg"
+              alt="Logo del colegio"
+              className="w-16 h-22"
+            />
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
             Bienvenido al Sistema Escolar
