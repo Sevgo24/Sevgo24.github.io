@@ -3,7 +3,6 @@ import { Html5Qrcode } from "html5-qrcode";
 import { ArrowLeft, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { toast } from "sonner";
 import ScanTypeSelector from "./ScanTypeSelector";
 
 interface CameraScannerProps {
@@ -59,17 +58,7 @@ const CameraScanner = ({ onBack, onScanSuccess }: CameraScannerProps) => {
             lastScannedRef.current = { code: decodedText, timestamp: now };
 
             // Intentar registrar el escaneo
-            const success = onScanSuccess(decodedText, currentType);
-
-            if (success) {
-              toast.success(
-                `${currentType === "ingreso" ? "Entrada" : "Salida"} registrada`
-              );
-            } else {
-              toast.error(
-                `Ya existe un registro de ${currentType} reciente para este estudiante`
-              );
-            }
+            onScanSuccess(decodedText, currentType);
 
             scanner.pause(true);
             isScannerRunningRef.current = false;

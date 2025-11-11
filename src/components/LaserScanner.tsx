@@ -3,7 +3,6 @@ import { ArrowLeft, Scan } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
 import ScanTypeSelector from "./ScanTypeSelector";
 import styles from "./styles/LaserScanner.module.scss";
 
@@ -27,17 +26,7 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
 
   const handleScan = (code: string) => {
     if (code.trim()) {
-      const success = onScanSuccess(code, scanType);
-
-      if (success) {
-        toast.success(
-          `${scanType === "ingreso" ? "Ingreso" : "Salida"} registrada`
-        );
-      } else {
-        toast.error(
-          `Ya existe un registro de ${scanType} reciente para este estudiante`
-        );
-      }
+      onScanSuccess(code, scanType);
 
       setScannedCode("");
 

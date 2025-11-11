@@ -53,11 +53,12 @@ export const useMarcacion = () => {
         });
         return response.alumno;
       } catch (error: any) {
-        const msg =
-          error.response?.data?.mensaje || "Error al registrar la marcación";
+        const msg = error.response?.data?.error || "Ocurrió un error al registrar la marcación.";
+        const esMarcacionRepetida = msg.toLowerCase().includes("ya registró su ingreso");
         toast({
-          title: "Error de Marcación",
+          title: esMarcacionRepetida ? "Marcación existente" : "Error al registrar marcación",
           description: msg,
+          variant: esMarcacionRepetida ? "default" : "destructive",
         });
         return null;
       } finally {
