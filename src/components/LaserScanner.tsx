@@ -9,11 +9,14 @@ import styles from "./styles/LaserScanner.module.scss";
 
 interface LaserScannerProps {
   onBack: () => void;
-  onScanSuccess: (studentId: string, type: "entrada" | "salida") => boolean;
+  onScanSuccess: (
+    studentId: string,
+    type: "ingreso" | "salida"
+  ) => Promise<void> | boolean;
 }
 
 const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
-  const [scanType, setScanType] = useState<"entrada" | "salida">("entrada");
+  const [scanType, setScanType] = useState<"ingreso" | "salida">("ingreso");
   const [scannedCode, setScannedCode] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -28,7 +31,7 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
 
       if (success) {
         toast.success(
-          `${scanType === "entrada" ? "Entrada" : "Salida"} registrada`
+          `${scanType === "ingreso" ? "Ingreso" : "Salida"} registrada`
         );
       } else {
         toast.error(
@@ -101,7 +104,7 @@ const LaserScanner = ({ onBack, onScanSuccess }: LaserScannerProps) => {
               className="w-full bg-gradient-to-r from-secondary to-accent"
               size="lg"
             >
-              Registrar {scanType === "entrada" ? "Entrada" : "Salida"}
+              Registrar {scanType === "ingreso" ? "Ingreso" : "Salida"}
             </Button>
           </div>
         </Card>

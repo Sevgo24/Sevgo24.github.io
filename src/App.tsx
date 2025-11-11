@@ -9,6 +9,7 @@ import AttendancePage from "./pages/AttendancePage";
 import EnrollmentPage from "./pages/EnrollmentPage";
 import CameraPage from "./pages/CameraPage";
 import LaserPage from "./pages/LaserPage";
+import AttendanceListPage from "./pages/AttendanceListPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/enrollment" element={<EnrollmentPage />} />
             <Route path="/camera" element={<CameraPage />} />
             <Route path="/laser" element={<LaserPage />} />
+            <Route path="/attendance-list" element={<AttendanceListPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

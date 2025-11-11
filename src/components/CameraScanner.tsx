@@ -8,17 +8,20 @@ import ScanTypeSelector from "./ScanTypeSelector";
 
 interface CameraScannerProps {
   onBack: () => void;
-  onScanSuccess: (studentId: string, type: "entrada" | "salida") => boolean;
+  onScanSuccess: (
+    studentId: string,
+    type: "ingreso" | "salida"
+  ) => Promise<void> | boolean;
 }
 
 const CameraScanner = ({ onBack, onScanSuccess }: CameraScannerProps) => {
-  const [scanType, setScanType] = useState<"entrada" | "salida">("entrada");
+  const [scanType, setScanType] = useState<"ingreso" | "salida">("ingreso");
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState<string>("");
   const scannerRef = useRef<Html5Qrcode | null>(null);
   const resumeTimeoutRef = useRef<number | null>(null);
   const isScannerRunningRef = useRef(false);
-  const scanTypeRef = useRef<"entrada" | "salida">("entrada");
+  const scanTypeRef = useRef<"ingreso" | "salida">("ingreso");
   const lastScannedRef = useRef<{ code: string; timestamp: number } | null>(
     null
   );
@@ -60,7 +63,7 @@ const CameraScanner = ({ onBack, onScanSuccess }: CameraScannerProps) => {
 
             if (success) {
               toast.success(
-                `${currentType === "entrada" ? "Entrada" : "Salida"} registrada`
+                `${currentType === "ingreso" ? "Entrada" : "Salida"} registrada`
               );
             } else {
               toast.error(

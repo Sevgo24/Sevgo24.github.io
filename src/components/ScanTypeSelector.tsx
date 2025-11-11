@@ -2,24 +2,24 @@ import { LogIn, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface ScanTypeSelectorProps {
-  value: "entrada" | "salida";
-  onChange: (value: "entrada" | "salida") => void;
+  value: "ingreso" | "salida";
+  onChange: (value: "ingreso" | "salida") => void;
 }
 
 const ScanTypeSelector = ({ value, onChange }: ScanTypeSelectorProps) => {
   return (
     <div className="grid grid-cols-2 gap-3 mb-6 p-1 bg-muted rounded-lg">
       <Button
-        onClick={() => onChange("entrada")}
-        variant={value === "entrada" ? "default" : "ghost"}
+        onClick={() => onChange("ingreso")}
+        variant={value === "ingreso" ? "default" : "ghost"}
         className={`gap-2 ${
-          value === "entrada"
+          value === "ingreso"
             ? "bg-gradient-to-r from-primary to-primary-glow shadow-md"
             : ""
         }`}
       >
         <LogIn className="w-4 h-4" />
-        Entrada
+        Ingreso
       </Button>
       <Button
         onClick={() => onChange("salida")}

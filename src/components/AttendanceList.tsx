@@ -2,53 +2,79 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { LogIn, LogOut } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { AttendanceRecord } from "@/hooks/useAttendance";
+import type { Marcacion } from "@/api";
 
 interface AttendanceListProps {
-  records: AttendanceRecord[];
+  records: Marcacion[];
 }
 
 const AttendanceList = ({ records }: AttendanceListProps) => {
   return (
-    <ScrollArea className="h-[300px] pr-4">
+    <ScrollArea className="h-[350px] pr-4">
       <div className="space-y-3">
+        {records.length === 0 && (
+          <p className="text-center text-muted-foreground">
+            No hay marcaciones registradas para hoy.
+          </p>
+        )}
+
         {records.map((record) => (
           <div
-            key={record.id}
-            className="flex items-center gap-3 p-4 bg-card rounded-lg border shadow-sm hover:shadow-md transition-shadow"
+            key={record.marcacionId}
+            className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 bg-card rounded-lg border shadow-sm hover:shadow-md transition-shadow"
           >
-            <div
-              className={`p-2 rounded-full ${
-                record.type === "entrada"
-                  ? "bg-primary/10 text-primary"
-                  : "bg-secondary/10 text-secondary"
-              }`}
-            >
-              {record.type === "entrada" ? (
-                <LogIn className="w-5 h-5" />
-              ) : (
-                <LogOut className="w-5 h-5" />
+            <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+                <p className="font-semibold">Matrícula #{record.matriculaId}</p>
+                <p className="text-sm text-muted-foreground">
+                  Fecha:{" "}
+                  {format(new Date(record.fecha), "dd/MM/yyyy", { locale: es })}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-4 justify-center sm:justify-end">
+              {/* Hora de ingreso */}
+              {record.horaIngreso && (
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-full bg-primary/10 text-primary">
+                    <LogIn className="w-4 h-4" />
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-semibold text-primary">
+                      Ingreso
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {format(
+                        new Date(`${record.fecha}T${record.horaIngreso}`),
+                        "HH:mm:ss",
+                        { locale: es }
+                      )}
+                    </p>
+                  </div>
+                </div>
               )}
-            </div>
 
-            <div className="flex-1 min-w-0">
-              <p className="font-semibold truncate">{record.name}</p>
-              <p className="text-sm text-muted-foreground">
-                ID: {record.studentId.slice(0, 12)}
-              </p>
-            </div>
-
-            <div className="text-right">
-              <p
-                className={`text-sm font-semibold ${
-                  record.type === "entrada" ? "text-primary" : "text-secondary"
-                }`}
-              >
-                {record.type === "entrada" ? "Entrada" : "Salida"}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {format(record.timestamp, "HH:mm:ss", { locale: es })}
-              </p>
+              {/* Hora de salida */}
+              {record.horaSalida && (
+                <div className="flex items-center gap-2">
+                  <div className="p-2 rounded-full bg-secondary/10 text-secondary">
+                    <LogOut className="w-4 h-4" />
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-semibold text-secondary">
+                      Salida
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {format(
+                        new Date(`${record.fecha}T${record.horaSalida}`),
+                        "HH:mm:ss",
+                        { locale: es }
+                      )}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         ))}
