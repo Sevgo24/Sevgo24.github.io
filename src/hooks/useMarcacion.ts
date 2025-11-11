@@ -54,11 +54,11 @@ export const useMarcacion = () => {
         return response.alumno;
       } catch (error: any) {
         const msg = error.response?.data?.error || "Ocurrió un error al registrar la marcación.";
-        const esMarcacionRepetida = msg.toLowerCase().includes("ya registró su ingreso");
+        const esMarcacionRepetida = msg.toLowerCase().includes("ya registró");
         toast({
           title: esMarcacionRepetida ? "Marcación existente" : "Error al registrar marcación",
           description: msg,
-          variant: esMarcacionRepetida ? "default" : "destructive",
+          variant: "destructive",
         });
         return null;
       } finally {
